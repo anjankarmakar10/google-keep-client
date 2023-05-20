@@ -7,7 +7,7 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <nav className="flex items-center h-16 border-b p-2 ">
+    <nav className="flex items-center h-16 border-b p-2">
       <>
         {toggle ? (
           <div
