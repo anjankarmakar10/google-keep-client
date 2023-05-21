@@ -25,7 +25,7 @@ const Link = ({ icon, to }) => {
   return (
     <NavLink
       to={to}
-      className="rounded-full grid place-content-center mx-1 p-3 hover:bg-[#FEEFC3] text-[#707378]  hover:text-black transition-all cursor-pointer"
+      className="rounded-full grid place-content-center mx-1 p-3 hover:bg-[#FEEFC3] text-[#5f6368]  hover:text-black transition-all cursor-pointer"
     >
       {icon}
     </NavLink>

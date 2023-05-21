@@ -1,4 +1,3 @@
-import React from "react";
 import SignInButton from "./Provider.style";
 import { useAuth } from "../../context/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";

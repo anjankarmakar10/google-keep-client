@@ -1,10 +1,22 @@
-import { Grid, List, Menu, Search, User, ArrowLeft } from "react-feather";
+import { Grid, List, Menu, Search, ArrowLeft, LogOut } from "react-feather";
 import { useState } from "react";
 import logo from "../../assets/logo.png";
+import { useAuth } from "../../context/AuthProvider";
 
 const Navbar = () => {
   const [bg, setBg] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [onProfile, setOnProfile] = useState(false);
+  const { user, logOut } = useAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+      setOnProfile(false);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <nav className="flex items-center h-16 border-b p-2">
@@ -18,9 +30,9 @@ const Navbar = () => {
             <div className="cursor-pointer px-1">
               <div
                 onClick={() => setToggle(false)}
-                className="rounded-full grid place-content-center  p-2 hover:bg-[#F0F0F0] text-[#707378] hover:text-black transition-all cursor-pointer"
+                className="rounded-full grid place-content-center  p-2 hover:bg-[#F0F0F0] text-[#5f6368] hover:text-black transition-all cursor-pointer"
               >
-                <ArrowLeft color="#707378" />
+                <ArrowLeft color="#5f6368" />
               </div>
             </div>
             <form className="w-full" action="">
@@ -35,7 +47,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex items-center mr-[90px]">
-            <Icon icon={<Menu />} />
+            <Icon icon={<Menu size={20} />} />
 
             <div className="flex items-center gap-4">
               <img className="w-[30px]" src={logo} alt="" />
@@ -52,7 +64,7 @@ const Navbar = () => {
         }`}
       >
         <div className="cursor-pointer px-4">
-          <Search color="#707378" size={18} />
+          <Search color="#5f6368" size={18} />
         </div>
         <form className="w-full" action="">
           <input
@@ -69,7 +81,42 @@ const Navbar = () => {
           <Icon icon={<Search />} />
         </div>
         <>{true ? <Icon icon={<Grid />} /> : <Icon icon={<List />} />}</>
-        <Icon icon={<User />} />
+
+        <div
+          onClick={() => setOnProfile((prev) => !prev)}
+          className="p-[1px] border-2 border-transparent hover:border-[#887075] rounded-full cursor-pointer"
+        >
+          <img className="w-8 rounded-full" src={`${user.photoURL}`} alt="" />
+        </div>
+        {onProfile && (
+          <div
+            onClick={() => setOnProfile(false)}
+            className="absolute z-40 top-[64px] p-4 right-0 left-0 bottom-0"
+          >
+            <article className="bg-[#AECBFA] p-4 rounded-lg max-w-xs ml-auto">
+              <div className="bg-white rounded-md h-14 flex gap-4 items-center px-3 mb-4 ">
+                <img
+                  className="w-9 rounded-full"
+                  src={`${user.photoURL}`}
+                  alt=""
+                />
+                <div className="text-sm font-medium">
+                  <h4>{user?.displayName}</h4>
+                  <h5 className="text-xs mt-[-2px]">{user?.email}</h5>
+                </div>
+              </div>
+              <div
+                onClick={handleSignOut}
+                className="cursor-pointer h-10 gap-6 flex items-center rounded-md pl-9 pr-6   hover:bg-[#cedff8]"
+              >
+                <LogOut />
+                <span className="text-sm font-medium text-[#1f1f1f]">
+                  Sign out
+                </span>
+              </div>
+            </article>
+          </div>
+        )}
       </div>
     </nav>
   );
@@ -77,7 +124,7 @@ const Navbar = () => {
 
 const Icon = ({ icon }) => {
   return (
-    <div className="rounded-full grid place-content-center mx-1 p-3 hover:bg-[#F0F0F0] text-[#707378] hover:text-black transition-all cursor-pointer">
+    <div className="rounded-full grid place-content-center mx-1 p-3 hover:bg-[#F0F0F0] text-[#5f6368] hover:text-black transition-all cursor-pointer">
       {icon}
     </div>
   );
