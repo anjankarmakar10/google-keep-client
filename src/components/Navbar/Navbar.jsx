@@ -39,7 +39,9 @@ const Navbar = () => {
 
             <div className="flex items-center gap-4">
               <img className="w-[30px]" src={logo} alt="" />
-              <h2 className=" text-[22px] font-medium text-[#5F6368]">Keep</h2>
+              <h2 className=" text-[22px] hover:underline cursor-pointer font-medium text-[#5F6368]">
+                Keep
+              </h2>
             </div>
           </div>
         )}
