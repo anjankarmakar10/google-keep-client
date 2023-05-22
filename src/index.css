@@ -59,3 +59,9 @@ body {
   background-color: #feefc3;
   color: black;
 }
+
+.note-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}

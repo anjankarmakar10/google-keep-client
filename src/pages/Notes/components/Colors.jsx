@@ -34,7 +34,7 @@ const Colors = ({ onColorChange }) => {
             onColorChange(item?.color);
           }}
           className={`w-7 h-7 p-[2px] border-2 border-transparent rounded-full cursor-pointer ${
-            color === item.color && "border-[#a142f4]"
+            color === item.color && "border-[#9d35f8]"
           }`}
         ></article>
       ))}

@@ -1,12 +1,14 @@
 import moment from "moment/moment";
 import { useRef, useState } from "react";
-import { MoreVertical, X } from "react-feather";
+import { X } from "react-feather";
 import { BsPin, BsFillPinFill } from "react-icons/bs";
 import { MdOutlineColorLens } from "react-icons/md";
 import Colors from "./components/Colors";
-
+import Note from "./components/Note";
+import Icon from "./components/Icon";
 const Notes = () => {
   const [open, setOpen] = useState(false);
+  const [isColor, setIsColor] = useState(false);
   const [color, setColor] = useState("#fff");
   const [pin, setPin] = useState(false);
 
@@ -41,7 +43,7 @@ const Notes = () => {
 
   return (
     <div className="main-height">
-      <header className=" pt-8 flex justify-center px-4">
+      <header className=" pt-8 flex justify-center px-4 mb-4">
         <>
           {!open ? (
             <div
@@ -101,7 +103,10 @@ const Notes = () => {
                       />
                     )}
                   </>
-                  <Icon icon={<MdOutlineColorLens />} />
+                  <Icon
+                    onClick={() => setIsColor((prev) => !prev)}
+                    icon={<MdOutlineColorLens />}
+                  />
                 </div>
                 <div
                   onClick={handleAdd}
@@ -116,25 +121,26 @@ const Notes = () => {
               >
                 <X size={18} />
               </div>
-              <div className="absolute bottom-[-2.3rem] left-10 z-40">
-                <Colors onColorChange={onColorChange} />
-              </div>
+              {isColor && (
+                <div className="absolute bottom-[-2.3rem] left-10 z-40">
+                  <Colors onColorChange={onColorChange} />
+                </div>
+              )}
             </div>
           )}
         </>
       </header>
+      <section className="max-w-[1040px] mx-auto px-4">
+        <div className="note-container">
+          <Note />
+          <Note />
+          <Note />
+          <Note />
+          <Note />
+          <Note />
+        </div>
+      </section>
     </div>
-  );
-};
-
-const Icon = ({ icon, onClick }) => {
-  return (
-    <article
-      onClick={onClick}
-      className="w-8 h-8 rounded-full mx-2 grid place-content-center border border-transparent hover:bg-[rgba(95,99,104,0.157)] hover:opacity-[0.87] text-[#212121] mb-[-2px] cursor-pointer"
-    >
-      {icon}
-    </article>
   );
 };
 
