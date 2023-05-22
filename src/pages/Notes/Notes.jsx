@@ -1,10 +1,43 @@
-import { useState } from "react";
+import moment from "moment/moment";
+import { useRef, useState } from "react";
 import { MoreVertical, X } from "react-feather";
-import { BsPin } from "react-icons/bs";
+import { BsPin, BsFillPinFill } from "react-icons/bs";
 import { MdOutlineColorLens } from "react-icons/md";
+import Colors from "./components/Colors";
 
 const Notes = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [color, setColor] = useState("#fff");
+  const [pin, setPin] = useState(false);
+
+  const titleRef = useRef();
+  const noteRef = useRef();
+  const date = moment().format("l");
+
+  const onColorChange = (color) => {
+    setColor(color);
+  };
+
+  const handleAdd = () => {
+    const title = titleRef.current.value;
+    const note = noteRef.current.value;
+
+    if (note.trim("") === "") {
+      alert("Note can not be empty!");
+      return;
+    }
+
+    const newNote = {
+      title: title || "Untitle",
+      note,
+      color,
+      pin,
+      date,
+    };
+    console.log(newNote);
+    titleRef.current.value = "";
+    noteRef.current.value = "";
+  };
 
   return (
     <div className="main-height">
@@ -28,7 +61,10 @@ const Notes = () => {
             </div>
           ) : (
             <div
-              style={{ boxShadow: "0 3px 5px rgba(0,0,0,.20)" }}
+              style={{
+                boxShadow: "0 3px 5px rgba(0,0,0,.20)",
+                backgroundColor: `${color}`,
+              }}
               className={`flex max-w-[600px]  w-full transition-all rounded-lg relative bg-[#f1f3f4]"
            py-3 px-4 border border-[#e0e0e0] flex-col`}
             >
@@ -37,6 +73,7 @@ const Notes = () => {
                   className="bg-transparent placeholder:font-semibold font-medium text-[15px] placeholder:text-[#4C4C4C] outline-none w-full"
                   type="text"
                   placeholder="Title"
+                  ref={titleRef}
                 />
                 <textarea
                   className="bg-transparent text-sm placeholder:font-semibold font-medium   placeholder:text-[#4C4C4C] outline-none w-full"
@@ -46,14 +83,30 @@ const Notes = () => {
                   placeholder="Take a note..."
                   cols="30"
                   rows={4}
+                  ref={noteRef}
                 ></textarea>
               </form>
               <div className=" ml-[-16px] mb-[-6px] mt-1 flex justify-between items-center">
                 <div className="flex items-center">
-                  <Icon icon={<BsPin />} />
+                  <>
+                    {pin ? (
+                      <Icon
+                        onClick={() => setPin((pin) => !pin)}
+                        icon={<BsFillPinFill />}
+                      />
+                    ) : (
+                      <Icon
+                        onClick={() => setPin((pin) => !pin)}
+                        icon={<BsPin />}
+                      />
+                    )}
+                  </>
                   <Icon icon={<MdOutlineColorLens />} />
                 </div>
-                <div className="px-6 py-2 bg-white text-sm rounded-md hover:bg-[rgba(95,99,104,.039)] cursor-pointer text-[#000000dd]">
+                <div
+                  onClick={handleAdd}
+                  className="px-6 py-2 bg-transparent text-sm rounded-md hover:bg-[#5f636849] cursor-pointer text-[#000000dd]"
+                >
                   Save
                 </div>
               </div>
@@ -63,6 +116,9 @@ const Notes = () => {
               >
                 <X size={18} />
               </div>
+              <div className="absolute bottom-[-2.3rem] left-10 z-40">
+                <Colors onColorChange={onColorChange} />
+              </div>
             </div>
           )}
         </>
@@ -71,9 +127,12 @@ const Notes = () => {
   );
 };
 
-const Icon = ({ icon }) => {
+const Icon = ({ icon, onClick }) => {
   return (
-    <article className="w-8 h-8 rounded-full mx-2 grid place-content-center border border-transparent hover:bg-[rgba(95,99,104,0.157)] hover:opacity-[0.87] text-[#212121] mb-[-2px] cursor-pointer">
+    <article
+      onClick={onClick}
+      className="w-8 h-8 rounded-full mx-2 grid place-content-center border border-transparent hover:bg-[rgba(95,99,104,0.157)] hover:opacity-[0.87] text-[#212121] mb-[-2px] cursor-pointer"
+    >
       {icon}
     </article>
   );
