@@ -54,3 +54,8 @@ body {
     transform: translateY(5px);
   }
 }
+
+.active {
+  background-color: #feefc3;
+  color: black;
+}

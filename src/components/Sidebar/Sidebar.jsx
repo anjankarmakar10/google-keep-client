@@ -2,16 +2,17 @@ import { Heart, Trash2 } from "react-feather";
 import note from "../../assets/note.svg";
 import trash from "../../assets/trash.svg";
 import { NavLink } from "react-router-dom";
-
+import { AiOutlineBulb } from "react-icons/ai";
+import { BsPin } from "react-icons/bs";
 const Sidebar = () => {
   return (
     <aside className="w-[80px] py-2 px-2 ">
-      <ul className="flex flex-col items-center">
+      <ul className="flex flex-col gap-1 items-center">
         <li>
-          <Link to={"/"} icon={<img src={note} alt="" />} />
+          <Link to={"/"} icon={<AiOutlineBulb size={24} />} />
         </li>
         <li>
-          <Link to={"/importants"} icon={<Heart size={20} />} />
+          <Link to={"/importants"} icon={<BsPin size={24} />} />
         </li>
         <li>
           <Link to={"/deletes"} icon={<Trash2 size={20} />} />
