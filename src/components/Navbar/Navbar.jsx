@@ -2,6 +2,8 @@ import { Grid, List, Menu, Search, ArrowLeft, LogOut } from "react-feather";
 import { useState } from "react";
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../context/AuthProvider";
+import Swal from "sweetalert2";
+import { useApp } from "../../context/AppProvider";
 
 const Navbar = () => {
   const [bg, setBg] = useState(false);
@@ -9,13 +11,32 @@ const Navbar = () => {
   const [onProfile, setOnProfile] = useState(false);
   const { user, logOut } = useAuth();
 
+  const { title } = useApp();
+
   const handleSignOut = async () => {
-    try {
-      await logOut();
-      setOnProfile(false);
-    } catch (error) {
-      console.log(error.message);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Sign Out",
+    }).then((result) => {
+      const signOut = async () => {
+        try {
+          await logOut();
+          setOnProfile(false);
+        } catch (error) {
+          console.log(error.message);
+          return;
+        }
+      };
+
+      if (result.isConfirmed) {
+        signOut();
+        Swal.fire("Successfully Sign Out!", "", "success");
+      }
+    });
   };
 
   return (
@@ -52,7 +73,7 @@ const Navbar = () => {
             <div className="flex items-center gap-4">
               <img className="w-[30px]" src={logo} alt="" />
               <h2 className=" text-[22px] hover:underline cursor-pointer font-medium text-[#5F6368]">
-                Keep
+                {title}
               </h2>
             </div>
           </div>

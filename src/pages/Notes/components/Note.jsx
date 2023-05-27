@@ -53,7 +53,7 @@ const Note = () => {
         <Icon icon={<MoreVertical size={18} />} />
       </div>
       {isColor && (
-        <div className="absolute bottom-[-2.3rem] left-10 z-40">
+        <div className="absolute bottom-[-1.8rem] left-10 z-40">
           <Colors onColorChange={onColorChange} />
         </div>
       )}

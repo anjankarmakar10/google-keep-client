@@ -6,11 +6,14 @@ import { MdOutlineColorLens } from "react-icons/md";
 import Colors from "./components/Colors";
 import Note from "./components/Note";
 import Icon from "./components/Icon";
+import { useApp } from "../../context/AppProvider";
 const Notes = () => {
   const [open, setOpen] = useState(false);
   const [isColor, setIsColor] = useState(false);
   const [color, setColor] = useState("#fff");
   const [pin, setPin] = useState(false);
+  const { setTitle } = useApp();
+  setTitle("Keep");
 
   const titleRef = useRef();
   const noteRef = useRef();
@@ -39,10 +42,11 @@ const Notes = () => {
     console.log(newNote);
     titleRef.current.value = "";
     noteRef.current.value = "";
+    setOpen(false);
   };
 
   return (
-    <div className="main-height">
+    <div className="">
       <header className=" pt-8 flex justify-center px-4 mb-4">
         <>
           {!open ? (
@@ -130,7 +134,7 @@ const Notes = () => {
           )}
         </>
       </header>
-      <section className="max-w-[1040px] mx-auto px-4">
+      <section className="max-w-[1040px] mx-auto px-4 ">
         <div className="note-container">
           <Note />
           <Note />

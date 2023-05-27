@@ -23,7 +23,7 @@ const Colors = ({ onColorChange }) => {
       style={{
         boxShadow: "0 1px 2px 0 #3c40434d, 0 2px 6px 2px #3c404325",
       }}
-      className="max-w-[454px] rounded-lg h-fit py-2 gap-1 px-[9px] items-center bg-white flex flex-wrap"
+      className="max-w-[454px] rounded-lg h-fit py-2 gap-1 px-[9px] items-center bg-white flex flex-wrap sm:flex-nowrap "
     >
       {colors.map((item) => (
         <article
