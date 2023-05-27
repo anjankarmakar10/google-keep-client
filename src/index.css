@@ -71,3 +71,7 @@ body {
   gap: 1rem;
   flex-direction: column;
 }
+
+.nav {
+  transition: width 0.2s linear;
+}

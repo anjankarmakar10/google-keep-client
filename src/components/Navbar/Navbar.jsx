@@ -11,7 +11,7 @@ const Navbar = () => {
   const [onProfile, setOnProfile] = useState(false);
   const { user, logOut } = useAuth();
 
-  const { title, grid, setGrid } = useApp();
+  const { title, grid, setGrid, setMobileNav } = useApp();
 
   const handleSignOut = async () => {
     Swal.fire({
@@ -68,7 +68,10 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex items-center mr-[90px]">
-            <Icon icon={<Menu size={20} />} />
+            <Icon
+              onClick={() => setMobileNav((prev) => !prev)}
+              icon={<Menu size={20} />}
+            />
 
             <div className="flex items-center gap-4">
               <img className="w-[30px]" src={logo} alt="" />
