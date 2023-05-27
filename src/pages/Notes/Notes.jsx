@@ -12,7 +12,7 @@ const Notes = () => {
   const [isColor, setIsColor] = useState(false);
   const [color, setColor] = useState("#fff");
   const [pin, setPin] = useState(false);
-  const { setTitle } = useApp();
+  const { setTitle, grid } = useApp();
   setTitle("Keep");
 
   const titleRef = useRef();
@@ -134,8 +134,14 @@ const Notes = () => {
           )}
         </>
       </header>
-      <section className="max-w-[1040px] mx-auto px-4 ">
-        <div className="note-container">
+      <section
+        className={`${
+          grid ? "max-w-[1040px]" : "max-w-[632px]"
+        } max-w-[1040px] mx-auto px-4 `}
+      >
+        <div
+          className={`${grid ? "note-container-grid" : "note-container-flex"}`}
+        >
           <Note />
           <Note />
           <Note />

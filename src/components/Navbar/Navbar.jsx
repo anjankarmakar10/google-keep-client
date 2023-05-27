@@ -11,7 +11,7 @@ const Navbar = () => {
   const [onProfile, setOnProfile] = useState(false);
   const { user, logOut } = useAuth();
 
-  const { title } = useApp();
+  const { title, grid, setGrid } = useApp();
 
   const handleSignOut = async () => {
     Swal.fire({
@@ -101,7 +101,13 @@ const Navbar = () => {
         <div onClick={() => setToggle(true)} className="md:hidden">
           <Icon icon={<Search />} />
         </div>
-        <>{true ? <Icon icon={<Grid />} /> : <Icon icon={<List />} />}</>
+        <>
+          {grid ? (
+            <Icon onClick={() => setGrid((prev) => !prev)} icon={<Grid />} />
+          ) : (
+            <Icon onClick={() => setGrid((prev) => !prev)} icon={<List />} />
+          )}
+        </>
 
         <div
           onClick={() => setOnProfile((prev) => !prev)}
@@ -143,9 +149,12 @@ const Navbar = () => {
   );
 };
 
-const Icon = ({ icon }) => {
+const Icon = ({ icon, onClick }) => {
   return (
-    <div className="rounded-full grid place-content-center mx-1 p-3 hover:bg-[#F0F0F0] text-[#5f6368] hover:text-black transition-all cursor-pointer">
+    <div
+      onClick={onClick}
+      className="rounded-full grid place-content-center mx-1 p-3 hover:bg-[#F0F0F0] text-[#5f6368] hover:text-black transition-all cursor-pointer"
+    >
       {icon}
     </div>
   );

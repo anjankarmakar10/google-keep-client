@@ -5,12 +5,12 @@ const AppContext = createContext();
 export const useApp = () => useContext(AppContext);
 
 const AppProvider = ({ children }) => {
-  const [grid, setGird] = useState(true);
+  const [grid, setGrid] = useState(true);
   const [title, setTitle] = useState("Keep");
 
   const value = {
     grid,
-    setGird,
+    setGrid,
     title,
     setTitle,
   };
