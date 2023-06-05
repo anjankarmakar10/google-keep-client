@@ -4,11 +4,13 @@ import { BsPin, BsFillPinFill } from "react-icons/bs";
 import { MdOutlineColorLens } from "react-icons/md";
 import Icon from "./Icon";
 import Colors from "./Colors";
+import useAxios from "../../../hooks/useAxios";
 
 const Note = ({ note }) => {
   const [pin, setPin] = useState(false);
   const [color, setColor] = useState("#fff");
   const [isColor, setIsColor] = useState(false);
+  const axios = useAxios();
 
   const onColorChange = (color) => {
     setColor(color);
@@ -18,6 +20,10 @@ const Note = ({ note }) => {
     setPin(note?.pin);
     setColor(note?.color);
   }, []);
+
+  const handleUpdate = async (pin, color) => {
+    await axios.patch(`/notes/${note._id}`, { pin, color });
+  };
 
   return (
     <article
@@ -33,11 +39,20 @@ const Note = ({ note }) => {
             <>
               {pin ? (
                 <Icon
-                  onClick={() => setPin((pin) => !pin)}
+                  onClick={() => {
+                    setPin(false);
+                    handleUpdate(false, color);
+                  }}
                   icon={<BsFillPinFill />}
                 />
               ) : (
-                <Icon onClick={() => setPin((pin) => !pin)} icon={<BsPin />} />
+                <Icon
+                  onClick={() => {
+                    setPin(true);
+                    handleUpdate(true, color);
+                  }}
+                  icon={<BsPin />}
+                />
               )}
             </>
           </div>
