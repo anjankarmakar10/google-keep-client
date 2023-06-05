@@ -8,6 +8,9 @@ import Note from "./components/Note";
 import Icon from "./components/Icon";
 import { useApp } from "../../context/AppProvider";
 import { useAuth } from "../../context/AuthProvider";
+import useAxios from "../../hooks/useAxios";
+import useNotes from "../../hooks/useNotes";
+
 const Notes = () => {
   const [open, setOpen] = useState(false);
   const [isColor, setIsColor] = useState(false);
@@ -15,6 +18,10 @@ const Notes = () => {
   const [pin, setPin] = useState(false);
   const { setTitle, grid } = useApp();
   setTitle("Keep");
+
+  const { data, refetch } = useNotes();
+
+  const axios = useAxios();
 
   const { user } = useAuth();
 
@@ -26,7 +33,7 @@ const Notes = () => {
     setColor(color);
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     const title = titleRef.current.value;
     const note = noteRef.current.value;
 
@@ -43,9 +50,21 @@ const Notes = () => {
       date,
       uid: user.uid,
     };
-    titleRef.current.value = "";
-    noteRef.current.value = "";
-    setOpen(false);
+
+    try {
+      const { data } = await axios.post("/notes", newNote);
+
+      if (data.insertedId) {
+        refetch();
+        titleRef.current.value = "";
+        noteRef.current.value = "";
+        setOpen(false);
+        setPin(false);
+        setColor("#fff");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -145,12 +164,9 @@ const Notes = () => {
         <div
           className={`${grid ? "note-container-grid" : "note-container-flex"}`}
         >
-          <Note />
-          <Note />
-          <Note />
-          <Note />
-          <Note />
-          <Note />
+          {data?.map((note) => (
+            <Note key={note?._id} note={note} />
+          ))}
         </div>
       </section>
     </div>
