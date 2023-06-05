@@ -37,13 +37,13 @@ const Notes = () => {
     const title = titleRef.current.value;
     const note = noteRef.current.value;
 
-    if (note.trim("") === "") {
+    if (note.trim("") === "" || title.trim("") === "") {
       alert("Note can not be empty!");
       return;
     }
 
     const newNote = {
-      title: title || "Untitle",
+      title: title,
       note,
       color,
       pin,

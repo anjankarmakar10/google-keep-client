@@ -1,28 +1,36 @@
 import { useEffect, useRef, useState } from "react";
-import { MoreVertical } from "react-feather";
+import { MoreVertical, Trash2 } from "react-feather";
 import { BsPin, BsFillPinFill } from "react-icons/bs";
 import { MdOutlineColorLens } from "react-icons/md";
 import Icon from "./Icon";
 import Colors from "./Colors";
 import useAxios from "../../../hooks/useAxios";
+import useNotes from "../../../hooks/useNotes";
 
 const Note = ({ note }) => {
   const [pin, setPin] = useState(false);
   const [color, setColor] = useState("#fff");
   const [isColor, setIsColor] = useState(false);
   const axios = useAxios();
-
-  const onColorChange = (color) => {
-    setColor(color);
-  };
+  const { refetch } = useNotes();
 
   useEffect(() => {
     setPin(note?.pin);
     setColor(note?.color);
   }, []);
 
+  const onColorChange = async (color) => {
+    setColor(color);
+    await axios.patch(`/notes/${note._id}`, { pin, color });
+  };
+
   const handleUpdate = async (pin, color) => {
     await axios.patch(`/notes/${note._id}`, { pin, color });
+  };
+
+  const handleDelete = async () => {
+    await axios.delete(`/notes/${note._id}`);
+    refetch();
   };
 
   return (
@@ -64,7 +72,7 @@ const Note = ({ note }) => {
           onClick={() => setIsColor((prev) => !prev)}
           icon={<MdOutlineColorLens />}
         />
-        <Icon icon={<MoreVertical size={18} />} />
+        <Icon onClick={handleDelete} icon={<Trash2 size={18} />} />
       </div>
       {isColor && (
         <div className="absolute bottom-[-1.8rem] left-10 z-40">
