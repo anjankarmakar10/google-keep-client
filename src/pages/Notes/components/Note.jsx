@@ -29,6 +29,7 @@ const Note = ({ note }) => {
   const handleUpdate = async (pin, color) => {
     await axios.patch(`/notes/${note._id}`, { pin, color });
     refetchPins();
+    refetch();
   };
 
   const handleDelete = async () => {
