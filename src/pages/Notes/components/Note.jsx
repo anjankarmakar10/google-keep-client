@@ -6,6 +6,7 @@ import Icon from "./Icon";
 import Colors from "./Colors";
 import useAxios from "../../../hooks/useAxios";
 import useNotes from "../../../hooks/useNotes";
+import usePins from "../../../hooks/usePins";
 
 const Note = ({ note }) => {
   const [pin, setPin] = useState(false);
@@ -13,6 +14,7 @@ const Note = ({ note }) => {
   const [isColor, setIsColor] = useState(false);
   const axios = useAxios();
   const { refetch } = useNotes();
+  const { refetch: refetchPins } = usePins();
 
   useEffect(() => {
     setPin(note?.pin);
@@ -26,11 +28,13 @@ const Note = ({ note }) => {
 
   const handleUpdate = async (pin, color) => {
     await axios.patch(`/notes/${note._id}`, { pin, color });
+    refetchPins();
   };
 
   const handleDelete = async () => {
     await axios.delete(`/notes/${note._id}`);
     refetch();
+    refetchPins();
   };
 
   return (

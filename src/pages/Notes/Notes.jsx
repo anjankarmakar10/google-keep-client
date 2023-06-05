@@ -10,13 +10,14 @@ import { useApp } from "../../context/AppProvider";
 import { useAuth } from "../../context/AuthProvider";
 import useAxios from "../../hooks/useAxios";
 import useNotes from "../../hooks/useNotes";
+import NoteContainer from "./components/NoteContainer";
 
 const Notes = () => {
   const [open, setOpen] = useState(false);
   const [isColor, setIsColor] = useState(false);
   const [color, setColor] = useState("#fff");
   const [pin, setPin] = useState(false);
-  const { setTitle, grid } = useApp();
+  const { setTitle } = useApp();
   setTitle("Keep");
 
   const { data, refetch } = useNotes();
@@ -156,19 +157,11 @@ const Notes = () => {
           )}
         </>
       </header>
-      <section
-        className={`${
-          grid ? "max-w-[1040px]" : "max-w-[632px]"
-        } max-w-[1040px] mx-auto px-4 `}
-      >
-        <div
-          className={`${grid ? "note-container-grid" : "note-container-flex"}`}
-        >
-          {data?.map((note) => (
-            <Note key={note?._id} note={note} />
-          ))}
-        </div>
-      </section>
+      <NoteContainer>
+        {data?.map((note) => (
+          <Note key={note?._id} note={note} />
+        ))}
+      </NoteContainer>
     </div>
   );
 };
