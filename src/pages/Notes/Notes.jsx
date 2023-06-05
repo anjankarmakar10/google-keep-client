@@ -7,6 +7,7 @@ import Colors from "./components/Colors";
 import Note from "./components/Note";
 import Icon from "./components/Icon";
 import { useApp } from "../../context/AppProvider";
+import { useAuth } from "../../context/AuthProvider";
 const Notes = () => {
   const [open, setOpen] = useState(false);
   const [isColor, setIsColor] = useState(false);
@@ -14,6 +15,8 @@ const Notes = () => {
   const [pin, setPin] = useState(false);
   const { setTitle, grid } = useApp();
   setTitle("Keep");
+
+  const { user } = useAuth();
 
   const titleRef = useRef();
   const noteRef = useRef();
@@ -38,8 +41,8 @@ const Notes = () => {
       color,
       pin,
       date,
+      uid: user.uid,
     };
-    console.log(newNote);
     titleRef.current.value = "";
     noteRef.current.value = "";
     setOpen(false);
