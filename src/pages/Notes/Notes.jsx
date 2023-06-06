@@ -97,7 +97,11 @@ const Notes = () => {
               className={`flex max-w-[600px]  w-full transition-all rounded-lg relative bg-[#f1f3f4]"
            py-3 px-4 border border-[#e0e0e0] flex-col`}
             >
-              <form className="w-full flex flex-col gap-3" action="">
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                className="w-full flex flex-col gap-3"
+                action=""
+              >
                 <input
                   className="bg-transparent placeholder:font-semibold font-medium text-[15px] placeholder:text-[#4C4C4C] outline-none w-full"
                   type="text"

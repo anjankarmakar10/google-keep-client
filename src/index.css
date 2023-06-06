@@ -63,3 +63,30 @@ body {
 .nav {
   transition: width 0.2s linear;
 }
+
+.swal2-html-container {
+  display: flex !important ;
+  flex-direction: column !important ;
+  gap: 0.5rem !important;
+  padding-top: 1rem !important;
+  font-size: 0.875rem !important;
+}
+
+.swal2-html-container input {
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-indent: 4px;
+  font-weight: 500;
+}
+
+.swal2-html-container textarea {
+  padding: 0.5rem;
+  min-height: 150px;
+  border-radius: 4px;
+  text-indent: 4px;
+}
+
+.swal2-actions {
+  margin: 0 !important;
+  margin-block: 0.5rem !important;
+}

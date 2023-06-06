@@ -73,7 +73,10 @@ const Navbar = () => {
           >
             <div className="cursor-pointer px-1">
               <div
-                onClick={() => setToggle(false)}
+                onClick={() => {
+                  setToggle(false);
+                  navigate("/");
+                }}
                 className="rounded-full grid place-content-center  p-2 hover:bg-[#F0F0F0] text-[#5f6368] hover:text-black transition-all cursor-pointer"
               >
                 <ArrowLeft color="#5f6368" />

@@ -7,6 +7,7 @@ import Colors from "./Colors";
 import useAxios from "../../../hooks/useAxios";
 import useNotes from "../../../hooks/useNotes";
 import usePins from "../../../hooks/usePins";
+import Swal from "sweetalert2";
 
 const Note = ({ note }) => {
   const [pin, setPin] = useState(false);
@@ -38,12 +39,24 @@ const Note = ({ note }) => {
     refetchPins();
   };
 
+  const handleUpdateNote = async () => {
+    Swal.fire({
+      title: "",
+      html:
+        `<input  value='${note?.title}' class="m-0 border outline-none">` +
+        `<textarea class="m-0 border outline-none">${note?.note} </textarea>`,
+      focusConfirm: false,
+      preConfirm: () => {},
+    });
+  };
+
   return (
     <article
+      onClick={handleUpdateNote}
       style={{
         backgroundColor: `${color}`,
       }}
-      className="border w-full border-[e0e0e0] rounded-lg relative"
+      className="border w-full border-[e0e0e0] rounded-lg relative h-fit "
     >
       <div className="py-3 px-4 flex flex-col gap-1 text-[#202124]">
         <div className="flex  justify-between gap-2">
@@ -70,7 +83,7 @@ const Note = ({ note }) => {
             </>
           </div>
         </div>
-        <p className="text-sm">{note?.title}</p>
+        <p className="text-sm">{note?.note}</p>
       </div>
       <div className=" mt-1 ml-[-3px] mr-[-3px] mb-[4px] flex justify-between items-center">
         <Icon
