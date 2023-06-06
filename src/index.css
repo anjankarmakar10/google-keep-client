@@ -60,18 +60,6 @@ body {
   color: black;
 }
 
-.note-container-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-.note-container-flex {
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-}
-
 .nav {
   transition: width 0.2s linear;
 }

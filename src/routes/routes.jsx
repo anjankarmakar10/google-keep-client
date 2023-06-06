@@ -5,6 +5,7 @@ import Importants from "../pages/Importants/Importants";
 import Deletes from "../pages/Deletes/Deletes";
 import SignIn from "../pages/SignIn/SignIn";
 import PrivateRoute from "./PrivateRoute";
+import Search from "../pages/Search/Search";
 
 const routes = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const routes = createBrowserRouter([
       {
         path: "/deletes",
         element: <Deletes />,
+      },
+      {
+        path: "/search",
+        element: <Search />,
       },
     ],
   },

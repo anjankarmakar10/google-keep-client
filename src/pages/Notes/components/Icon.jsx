@@ -1,7 +1,8 @@
-const Icon = ({ icon, onClick }) => {
+const Icon = ({ icon, onClick, title }) => {
   return (
     <article
       onClick={onClick}
+      title={title}
       className="w-8 h-8 rounded-full mx-2 grid place-content-center border border-transparent hover:bg-[rgba(95,99,104,0.157)] hover:opacity-[0.87] text-[#212121] mb-[-2px] cursor-pointer"
     >
       {icon}

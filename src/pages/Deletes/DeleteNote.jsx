@@ -40,8 +40,16 @@ const DeleteNote = ({ note }) => {
         <p className="text-sm">{note?.title}</p>
       </div>
       <div className=" mt-1 ml-[-3px] mr-[-3px] mb-[4px] flex  items-center">
-        <Icon onClick={handleDelete} icon={<Trash2 size={18} />} />
-        <Icon onClick={handleRestore} icon={<RotateCcw size={18} />} />
+        <Icon
+          title={"Delete forever"}
+          onClick={handleDelete}
+          icon={<Trash2 size={18} />}
+        />
+        <Icon
+          title={"Restore"}
+          onClick={handleRestore}
+          icon={<RotateCcw size={18} />}
+        />
       </div>
     </article>
   );

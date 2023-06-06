@@ -4,12 +4,17 @@ import logo from "../../assets/logo.png";
 import { useAuth } from "../../context/AuthProvider";
 import Swal from "sweetalert2";
 import { useApp } from "../../context/AppProvider";
+import { useNavigate } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
 
 const Navbar = () => {
   const [bg, setBg] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [onProfile, setOnProfile] = useState(false);
   const { user, logOut } = useAuth();
+  const axios = useAxios();
+
+  const navigate = useNavigate();
 
   const { title, grid, setGrid, setMobileNav } = useApp();
 
@@ -39,6 +44,24 @@ const Navbar = () => {
     });
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const value = e.target.search.value;
+
+    if (value.trim("") === "") {
+      navigate("/");
+      return;
+    }
+
+    try {
+      const { data } = await axios.get(`/search?query=${value}`);
+
+      navigate("/search", { state: { data } });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <nav className="flex items-center h-16 border-b p-2">
       <>
@@ -56,11 +79,12 @@ const Navbar = () => {
                 <ArrowLeft color="#5f6368" />
               </div>
             </div>
-            <form className="w-full" action="">
+            <form onSubmit={handleSearch} className="w-full" action="">
               <input
                 autoFocus
                 className="bg-transparent outline-none w-full"
                 type="text"
+                name="search"
                 placeholder="Search"
                 onBlur={() => setToggle(false)}
               />
@@ -90,11 +114,12 @@ const Navbar = () => {
         <div className="cursor-pointer px-4">
           <Search color="#5f6368" size={18} />
         </div>
-        <form className="w-full" action="">
+        <form onSubmit={handleSearch} className="w-full" action="">
           <input
             className="bg-transparent outline-none w-full"
             type="text"
             placeholder="Search"
+            name="search"
             onFocus={() => setBg(true)}
             onBlur={() => setBg(false)}
           />

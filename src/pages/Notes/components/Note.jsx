@@ -77,7 +77,11 @@ const Note = ({ note }) => {
           onClick={() => setIsColor((prev) => !prev)}
           icon={<MdOutlineColorLens />}
         />
-        <Icon onClick={handleDelete} icon={<Trash2 size={18} />} />
+        <Icon
+          title={"Delete"}
+          onClick={handleDelete}
+          icon={<Trash2 size={18} />}
+        />
       </div>
       {isColor && (
         <div className="absolute bottom-[-1.8rem] left-10 z-40">

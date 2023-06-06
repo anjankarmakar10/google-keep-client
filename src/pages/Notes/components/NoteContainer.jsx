@@ -11,7 +11,11 @@ const NoteContainer = ({ children }) => {
       } max-w-[1040px] mx-auto px-4 `}
     >
       <div
-        className={`${grid ? "note-container-grid" : "note-container-flex"}`}
+        className={`${
+          grid
+            ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+            : "flex flex-col gap-3"
+        }`}
       >
         {children}
       </div>
