@@ -1,5 +1,4 @@
 import { RotateCcw, Trash2 } from "react-feather";
-import { MdOutlineColorLens } from "react-icons/md";
 import Icon from "../Notes/components/Icon";
 import useAxios from "../../hooks/useAxios";
 import useDeletes from "../../hooks/useDeletes";
@@ -32,7 +31,7 @@ const DeleteNote = ({ note }) => {
         try {
           await axios.delete(`/deletes/${note?._id}`);
           refetch();
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          Swal.fire("Deleted!", "Your note has been deleted.", "success");
         } catch (error) {
           console.log(error.message);
         }
