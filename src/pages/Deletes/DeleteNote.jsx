@@ -3,6 +3,7 @@ import { MdOutlineColorLens } from "react-icons/md";
 import Icon from "../Notes/components/Icon";
 import useAxios from "../../hooks/useAxios";
 import useDeletes from "../../hooks/useDeletes";
+import Swal from "sweetalert2";
 
 const DeleteNote = ({ note }) => {
   const axios = useAxios();
@@ -18,12 +19,25 @@ const DeleteNote = ({ note }) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`/deletes/${note?._id}`);
-      refetch();
-    } catch (error) {
-      console.log(error.message);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`/deletes/${note?._id}`);
+          refetch();
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+    });
   };
 
   return (

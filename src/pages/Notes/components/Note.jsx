@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { MoreVertical, Trash2 } from "react-feather";
+import { useEffect, useState } from "react";
+import { Trash2 } from "react-feather";
 import { BsPin, BsFillPinFill } from "react-icons/bs";
 import { MdOutlineColorLens } from "react-icons/md";
 import Icon from "./Icon";
@@ -80,9 +80,9 @@ const Note = ({ note }) => {
       style={{
         backgroundColor: `${color}`,
       }}
-      className="border w-full border-[e0e0e0] rounded-lg relative h-fit cursor-pointer overflow-hidden"
+      className="border w-full border-[e0e0e0] rounded-lg relative h-fit cursor-pointer "
     >
-      <div className="absolute z-10 right-[-12px] top-[-1px]">
+      <div className="absolute z-10 right-[-10px] top-[-1px]">
         <>
           {pin ? (
             <Icon

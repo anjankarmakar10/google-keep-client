@@ -11,6 +11,7 @@ import { useAuth } from "../../context/AuthProvider";
 import useAxios from "../../hooks/useAxios";
 import useNotes from "../../hooks/useNotes";
 import NoteContainer from "./components/NoteContainer";
+import Loading from "../../components/Loading/Loading";
 
 const Notes = () => {
   const { setTitle } = useApp();
@@ -20,7 +21,7 @@ const Notes = () => {
   const [color, setColor] = useState("#fff");
   const [pin, setPin] = useState(false);
 
-  const { data, refetch } = useNotes();
+  const { data, refetch, isLoading } = useNotes();
 
   const axios = useAxios();
 
@@ -165,6 +166,13 @@ const Notes = () => {
           )}
         </>
       </header>
+      {isLoading && (
+        <div className="py-8 felx justify-center">
+          <div className="w-fit mx-auto">
+            <Loading />
+          </div>
+        </div>
+      )}
       <NoteContainer>
         {data?.map((note) => (
           <Note key={note?._id} note={note} />
