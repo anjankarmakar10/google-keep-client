@@ -43,10 +43,35 @@ const Note = ({ note }) => {
     Swal.fire({
       title: "",
       html:
-        `<input  value='${note?.title}' class="m-0 border outline-none">` +
-        `<textarea class="m-0 border outline-none">${note?.note} </textarea>`,
+        `<input id="titleInput" value='${note?.title}' class="m-0 border outline-none">` +
+        `<textarea id="noteInput" class="m-0 border outline-none">${note?.note} </textarea>`,
       focusConfirm: false,
-      preConfirm: () => {},
+      preConfirm: async () => {
+        const noteTitle = document.getElementById("titleInput").value;
+        const noteNote = document.getElementById("noteInput").value;
+        return { noteTitle, noteNote };
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { noteTitle, noteNote } = result.value;
+        if (noteTitle.trim() === "" || noteNote.trim() === "") return;
+
+        const { data } = await axios.post(`/notes/${note._id}`, {
+          noteTitle,
+          noteNote,
+        });
+
+        if (data.acknowledged) {
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Note updated successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch();
+        }
+      }
     });
   };
 
@@ -56,7 +81,7 @@ const Note = ({ note }) => {
       style={{
         backgroundColor: `${color}`,
       }}
-      className="border w-full border-[e0e0e0] rounded-lg relative h-fit "
+      className="border w-full border-[e0e0e0] rounded-lg relative h-fit cursor-pointer"
     >
       <div className="py-3 px-4 flex flex-col gap-1 text-[#202124]">
         <div className="flex  justify-between gap-2">
