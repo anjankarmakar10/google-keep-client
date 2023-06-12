@@ -1,5 +1,5 @@
 import moment from "moment/moment";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "react-feather";
 import { BsPin, BsFillPinFill } from "react-icons/bs";
 import { MdOutlineColorLens } from "react-icons/md";
@@ -13,12 +13,12 @@ import useNotes from "../../hooks/useNotes";
 import NoteContainer from "./components/NoteContainer";
 
 const Notes = () => {
+  const { setTitle } = useApp();
+
   const [open, setOpen] = useState(false);
   const [isColor, setIsColor] = useState(false);
   const [color, setColor] = useState("#fff");
   const [pin, setPin] = useState(false);
-  const { setTitle } = useApp();
-  setTitle("Keep");
 
   const { data, refetch } = useNotes();
 
@@ -29,6 +29,10 @@ const Notes = () => {
   const titleRef = useRef();
   const noteRef = useRef();
   const date = moment().format("l");
+
+  useEffect(() => {
+    setTitle("Keep");
+  }, []);
 
   const onColorChange = (color) => {
     setColor(color);

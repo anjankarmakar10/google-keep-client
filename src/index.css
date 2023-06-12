@@ -90,3 +90,10 @@ body {
   margin: 0 !important;
   margin-block: 0.5rem !important;
 }
+
+.loading-container {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  place-content: center;
+  background-color: white;
+}

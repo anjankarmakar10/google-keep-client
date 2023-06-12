@@ -1,11 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Notes from "../pages/Notes/Notes";
-import Importants from "../pages/Importants/Importants";
-import Deletes from "../pages/Deletes/Deletes";
 import SignIn from "../pages/SignIn/SignIn";
 import PrivateRoute from "./PrivateRoute";
 import Search from "../pages/Search/Search";
+import { lazy, Suspense } from "react";
+import Loading from "../components/Loading/Loading";
+
+// Lazy-loaded components
+const Importants = lazy(() => import("../pages/Importants/Importants"));
+const Deletes = lazy(() => import("../pages/Deletes/Deletes"));
 
 const routes = createBrowserRouter([
   {
@@ -22,11 +26,31 @@ const routes = createBrowserRouter([
       },
       {
         path: "/importants",
-        element: <Importants />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loading-container">
+                <Loading />
+              </div>
+            }
+          >
+            <Importants />
+          </Suspense>
+        ),
       },
       {
         path: "/deletes",
-        element: <Deletes />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loading-container">
+                <Loading />
+              </div>
+            }
+          >
+            <Deletes />
+          </Suspense>
+        ),
       },
       {
         path: "/search",
