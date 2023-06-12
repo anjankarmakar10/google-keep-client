@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthProvider";
 const useAxios = () => {
   const { user } = useAuth();
   const instance = axios.create({
-    baseURL: "http://localhost:4000",
+    baseURL: "https://google-keep-server-seven.vercel.app",
   });
   instance.defaults.headers.common["Authorization"] = `${user.uid}`;
   return instance;
