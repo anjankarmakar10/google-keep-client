@@ -77,36 +77,38 @@ const Note = ({ note }) => {
 
   return (
     <article
-      onClick={handleUpdateNote}
       style={{
         backgroundColor: `${color}`,
       }}
-      className="border w-full border-[e0e0e0] rounded-lg relative h-fit cursor-pointer"
+      className="border w-full border-[e0e0e0] rounded-lg relative h-fit cursor-pointer overflow-hidden"
     >
-      <div className="py-3 px-4 flex flex-col gap-1 text-[#202124]">
+      <div className="absolute z-10 right-[-12px] top-[-1px]">
+        <>
+          {pin ? (
+            <Icon
+              onClick={() => {
+                setPin(false);
+                handleUpdate(false, color);
+              }}
+              icon={<BsFillPinFill />}
+            />
+          ) : (
+            <Icon
+              onClick={() => {
+                setPin(true);
+                handleUpdate(true, color);
+              }}
+              icon={<BsPin />}
+            />
+          )}
+        </>
+      </div>
+      <div
+        onClick={handleUpdateNote}
+        className="py-3 px-4 flex flex-col gap-1 text-[#202124]"
+      >
         <div className="flex  justify-between gap-2">
           <h4 className="text-base font-medium">{note?.title}</h4>
-          <div className=" mr-[-20px] mt-[-8px]">
-            <>
-              {pin ? (
-                <Icon
-                  onClick={() => {
-                    setPin(false);
-                    handleUpdate(false, color);
-                  }}
-                  icon={<BsFillPinFill />}
-                />
-              ) : (
-                <Icon
-                  onClick={() => {
-                    setPin(true);
-                    handleUpdate(true, color);
-                  }}
-                  icon={<BsPin />}
-                />
-              )}
-            </>
-          </div>
         </div>
         <p className="text-sm">{note?.note}</p>
       </div>
